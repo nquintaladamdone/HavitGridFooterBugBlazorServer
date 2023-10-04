@@ -1,0 +1,43 @@
+﻿@using System.Globalization;
+@using HavitGridFooterBugBlazorServer.App.Models;
+@using Havit.Collections;
+
+<div class="container">
+    <h3>Invoices</h3>
+    <HxGrid ContentNavigationMode="GridContentNavigationMode.Pagination"
+            DataProvider="OnLoadItems"
+            Hover="true"
+            PageSize="10"
+            PlaceholdersRowCount="10"
+            Responsive="true"
+            SelectedDataItemChanged="OnInvoiceSelected"
+            SelectionEnabled="true"
+            Striped="true"
+            TItem="Invoice">
+        <Columns>
+            <HxGridColumn HeaderText="Number"
+                          Id="Number"
+                          IsDefaultSortColumn="true"
+                          ItemTextSelector="@(i => i.Number.ToString(CultureInfo.CurrentUICulture))"
+                          SortDirection="SortDirection.Ascending"
+                          SortKeySelector="@(i => i.Number)"
+                          TItem="Invoice" />
+            <HxGridColumn HeaderText="Client"
+                          Id="Client"
+                          IsDefaultSortColumn="false"
+                          ItemTextSelector="@(i => i.ClientName)"
+                          SortKeySelector="@(i => i.ClientName)"
+                          TItem="Invoice" />
+            <HxGridColumn FooterCssClass="text-end"
+                          FooterText="@(GetGrandTotal().ToString("C", CultureInfo.CurrentUICulture))"
+                          HeaderCssClass="text-end"
+                          HeaderText="Total"
+                          Id="Total"
+                          IsDefaultSortColumn="false"
+                          ItemCssClass="text-end"
+                          ItemTextSelector="@(i => i.Total.ToString("C", CultureInfo.CurrentUICulture))"
+                          SortKeySelector="@(i => i.Total)"
+                          TItem="Invoice" />
+        </Columns>
+    </HxGrid>
+</div>
